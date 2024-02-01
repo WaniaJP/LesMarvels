@@ -10,18 +10,19 @@ const privateKey = "25a23b65a25ed01647bf6f5000f26296ccb6e1ec"
  */
 export const getData = async (url) => {
     const ts =  Date.now();
+
     const hash = await getHash(publicKey, privateKey, ts);
+    const param = {apikey: publicKey, ts: ts, hash : hash};
 
-    const body = {apikey: publicKey, ts: ts, hash : hash};
+    console.log(param)
+    const response = await fetch(url+"apikey="+publicKey+"&ts="+ts+"&hash="+hash);
 
-    console.log(body)
-    const response = await fetch(url, {
+    /*const response = await fetch(url, {
         method: 'get',
-        param: JSON.stringify(body),
+        param: JSON.stringify(param),
         headers: {'Content-Type': 'application/json'}
-    });
+    });*/
     const data = await response.json();
-    console.log(data);
     return data;
 }
 
