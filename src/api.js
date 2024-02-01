@@ -17,11 +17,13 @@ export const getData = async (url) => {
     console.log(param)
     const response = await fetch(url+"apikey="+publicKey+"&ts="+ts+"&hash="+hash);
 
-    /*const response = await fetch(url, {
+    /* A VOIR PR REGLER LE PB
+    const response = await fetch(url, {
         method: 'get',
         param: JSON.stringify(param),
         headers: {'Content-Type': 'application/json'}
-    });*/
+    });
+    */
     const data = await response.json();
     return data;
 }
