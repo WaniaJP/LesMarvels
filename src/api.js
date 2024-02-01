@@ -1,5 +1,7 @@
+import { createHash } from 'node:crypto';
 
-
+const publicKey = "e4310f5363438e771574a562327bf668"
+const privateKey = "25a23b65a25ed01647bf6f5000f26296ccb6e1ec"
 /**
  * Récupère les données de l'endpoint en utilisant les identifiants
  * particuliers developer.marvels.com
@@ -7,7 +9,20 @@
  * @return {Promise<json>}
  */
 export const getData = async (url) => {
-    // A Compléter
+    const ts =  Date.now();
+    const hash = await getHash(publicKey, privateKey, ts);
+
+    const body = {apikey: publicKey, ts: ts, hash : hash};
+
+    console.log(body)
+    const response = await fetch(url, {
+        method: 'get',
+        param: JSON.stringify(body),
+        headers: {'Content-Type': 'application/json'}
+    });
+    const data = await response.json();
+    console.log(data);
+    return data;
 }
 
 /**
@@ -19,5 +34,6 @@ export const getData = async (url) => {
  * @return {Promise<ArrayBuffer>} en hexadecimal
  */
 export const getHash = async (publicKey, privateKey, timestamp) => {
-    // A compléter
+
+    return createHash('md5').update(timestamp+privateKey+publicKey).digest('hex');
 }
