@@ -14,7 +14,6 @@ export const getData = async (url) => {
     const hash = await getHash(publicKey, privateKey, ts);
     const param = {apikey: publicKey, ts: ts, hash : hash};
 
-    console.log(param)
     const response = await fetch(url+"apikey="+publicKey+"&ts="+ts+"&hash="+hash);
 
     /* A VOIR PR REGLER LE PB
@@ -25,6 +24,11 @@ export const getData = async (url) => {
     });
     */
     const data = await response.json();
+    console.log(data)
+    const charactersWithImages = data.data.results.filter(character =>
+        character.thumbnail && character.thumbnail.path !== "image_not_available"
+    );
+    console.log(charactersWithImages)
     return data;
 }
 
