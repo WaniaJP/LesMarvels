@@ -24,11 +24,11 @@ export const getData = async (url) => {
     });
     */
     const data = await response.json();
-    console.log(data)
+    //console.log(data)
     const charactersWithImages = data.data.results.filter(character =>
-        character.thumbnail && character.thumbnail.path !== "image_not_available"
+        character.thumbnail && !character.thumbnail.path.includes("image_not_available")
     );
-    console.log(charactersWithImages)
+    console.log(charactersWithImages);
     return data;
 }
 
