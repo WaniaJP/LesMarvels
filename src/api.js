@@ -28,8 +28,16 @@ export const getData = async (url) => {
     const charactersWithImages = data.data.results.filter(character =>
         character.thumbnail && !character.thumbnail.path.includes("image_not_available")
     );
-    console.log(charactersWithImages);
-    return data;
+    //console.log(charactersWithImages);
+
+    // Créez un tableau de Personnage avec les données nécessaires
+    const characters = charactersWithImages.map(character => ({
+        name: character.name,
+        description: character.description,
+        imageUrl: `${character.thumbnail.path}/portrait_xlarge.${character.thumbnail.extension}`
+    }));
+    console.log(characters);
+    return characters;
 }
 
 /**
