@@ -12,11 +12,11 @@ export const getData = async (url) => {
     const ts =  Date.now();
 
     const hash = await getHash(publicKey, privateKey, ts);
-    const param = {apikey: publicKey, ts: ts, hash : hash};
 
     const response = await fetch(url+"apikey="+publicKey+"&ts="+ts+"&hash="+hash);
 
     /* A VOIR PR REGLER LE PB
+    const param = {apikey: publicKey, ts: ts, hash : hash};
     const response = await fetch(url, {
         method: 'get',
         param: JSON.stringify(param),
@@ -30,7 +30,6 @@ export const getData = async (url) => {
     );
     //console.log(charactersWithImages);
 
-    // Créez un tableau de Personnage avec les données nécessaires
     const characters = charactersWithImages.map(character => ({
         name: character.name,
         description: character.description,
